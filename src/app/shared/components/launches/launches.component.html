@@ -1,12 +1,7 @@
 <div>
   <div *ngFor="let l of launches; let i = index">
-    <div *ngIf="i + 1 === launches.length" #theLastList>
+    <div enterViewport (visibilityChange)="show($event)">
       {{ l["flight_number"] }}
-    </div>
-    <div>
-      <div>
-        {{ l["flight_number"] }}
-      </div>
     </div>
   </div>
 </div>
