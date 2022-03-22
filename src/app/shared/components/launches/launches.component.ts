@@ -34,10 +34,12 @@ export class LaunchesComponent implements OnInit, AfterViewInit {
     this.getLaunches();
   }
   ngAfterViewInit(): void {
-    if (this.visibility === true) {
+    if (this.visibility) {
+      console.log(this.visibility);
       this.showResults += 20;
-      this.launchesService.getLaunches(this.showResults);
+      this.getLaunches();
     }
- }
+  }
+  ngAfterContentInit() {}
   intersectionObserver() {}
 }

@@ -4,7 +4,7 @@ import { Directive, Output, EventEmitter, ElementRef } from '@angular/core';
   selector: '[enterViewport]',
 })
 export class EnterViewportDirective {
-  @Output() visibilityChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() visibilityChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private observer?: IntersectionObserver;
   constructor(private elementRef: ElementRef) {}
@@ -24,7 +24,7 @@ export class EnterViewportDirective {
         (<any>entry).isIntersecting &&
         entry.target === this.elementRef.nativeElement;
       if (isIntersecting) {
-        this.visibilityChange.emit(entry.isIntersecting ? 'Visible' : 'Hidden');
+        this.visibilityChange.emit(entry.isIntersecting);
       }
     });
   };
