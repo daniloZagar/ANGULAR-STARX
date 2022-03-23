@@ -8,7 +8,6 @@ import { LaunchesDetailsComponent } from './components/launches/launches-details
 import { LaunchesItemComponent } from './components/launches/launches-item/launches-item.component';
 import { LaunchesComponent } from './components/launches/launches.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EnterViewportDirective } from './directives/enter-viewport.directive';
 
 @NgModule({
   imports: [
@@ -22,7 +21,6 @@ import { EnterViewportDirective } from './directives/enter-viewport.directive';
     LaunchesComponent,
     LaunchesDetailsComponent,
     LaunchesItemComponent,
-    EnterViewportDirective,
   ],
   exports: [
     LaunchesComponent,

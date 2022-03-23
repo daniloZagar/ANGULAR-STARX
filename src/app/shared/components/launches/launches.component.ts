@@ -6,7 +6,9 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LaunchesService } from '../../services/launches.service';
+import { ILaunches } from '../../interfaces/launches.model';
 
 @Component({
   selector: 'app-launches',
@@ -14,32 +16,44 @@ import { LaunchesService } from '../../services/launches.service';
   styleUrls: ['./launches.component.scss'],
 })
 export class LaunchesComponent implements OnInit, AfterViewInit {
-  launches = [];
-  showResults = 0;
-  options = {};
-  visibility = false;
-
+  @ViewChildren('theLastList', { read: ElementRef })
+  theLastList?: QueryList<ElementRef>;
+  showResults: number = 0;
+  launches: ILaunches[] = [];
+  allSub = Subscription;
+  observer: any;
   constructor(private launchesService: LaunchesService) {}
   getLaunches() {
     this.launchesService.getLaunches(this.showResults).subscribe((data) => {
-      this.launches = data;
+      data.forEach((element: ILaunches) => {
+        this.launches.push(element);
+      });
     });
   }
-  show(e: any) {
-    this.visibility = e;
-    console.log('this.visibility', this.visibility);
-  }
-
   ngOnInit(): void {
     this.getLaunches();
+    this.intersectionObserver();
   }
-  ngAfterViewInit(): void {
-    if (this.visibility) {
-      console.log(this.visibility);
-      this.showResults += 20;
-      this.getLaunches();
-    }
+
+  ngAfterViewInit() {
+    this.theLastList?.changes.subscribe((d) => {
+      console.log(d);
+      if (d.last) this.observer.observe(d.last.nativeElement);
+    });
   }
-  ngAfterContentInit() {}
-  intersectionObserver() {}
+
+  intersectionObserver() {
+    let options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    this.observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        this.showResults += 20;
+        this.getLaunches();
+      }
+    }, options);
+  }
 }

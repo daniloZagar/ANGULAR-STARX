@@ -10,8 +10,6 @@ export class LaunchesService {
   baseUrl = 'https://api.spacexdata.com/v3/launches';
   constructor(private http: HttpClient) {}
   getLaunches(offset: number): Observable<any> {
-    return this.http
-      .get(`${this.baseUrl}?limit=20&offset=${offset}`)
-      .pipe(map((response) => response));
+    return this.http.get(`${this.baseUrl}?limit=20&offset=${offset}`);
   }
 }
