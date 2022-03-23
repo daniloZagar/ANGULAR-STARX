@@ -1,67 +1,33 @@
 <div>
   <div class="grid grid-cols-1 lg:grid-cols-3">
-    <div class="col-span-1 py-5" *ngFor="let l of launches; let i = index">
-      <div
-        class="flex justify-center p-5"
-        *ngIf="i + 1 === launches.length"
-        #theLastList
-      >
-        <div
-          class="flex flex-col justify-center items-center shadow-md border-2 border-gray-700 w-full"
+    <div class="col-span-1" *ngFor="let l of launches; let i = index">
+      <div class="flex justify-center p-5" *ngIf="i + 1 === launches.length" #theLastList>
+        <a
+          [routerLink]="['/launches', l.flight_number]"
+          class="flex justify-center p-5 w-full"
         >
-          <div class="p-5">
-            <img
-              class="h-44 w-auto"
-              src="{{ l.links.mission_patch_small }}"
-              alt="rocket image"
-            />
-          </div>
-          <div class="bg-gray-700 w-full flex flex-col items-center">
-            <div>
-              <p class="text-white text-lg">
-                <span class="text-lg font-bold">Mission Name: </span
-                >{{ l.mission_name }}
-              </p>
-              <p class="text-white text-lg">
-                <span class="text-lg font-bold">Rocket Name: </span
-                >{{ l.rocket.rocket_name }}
-              </p>
-              <p class="text-white text-lg">
-                <span class="text-lg font-bold">Rocket Type: </span
-                >{{ l.rocket.rocket_type }}
-              </p>
-            </div>
-          </div>
-        </div>
+          <app-launches-item
+            class="w-full"
+            [missionName]="l.mission_name"
+            [rocketName]="l.rocket.rocket_name"
+            [rocketType]="l.rocket.rocket_type"
+            [imagePath]="l.links.mission_patch_small"
+          ></app-launches-item>
+        </a>
       </div>
       <div class="flex justify-center p-5" *ngIf="i + 1 !== launches.length">
-        <div
-          class="flex flex-col justify-center items-center shadow-md border-2 border-gray-700 w-full"
+        <a
+          [routerLink]="['/launches', l.flight_number]"
+          class="flex justify-center p-5 w-full"
         >
-          <div class="p-5">
-            <img
-              class="h-44 w-auto"
-              src="{{ l.links.mission_patch_small }}"
-              alt="rocket image"
-            />
-          </div>
-          <div class="bg-gray-700 w-full flex flex-col items-center py-5">
-            <div>
-              <p class="text-white text-lg">
-                <span class="text-lg font-bold">Mission Name: </span
-                >{{ l.mission_name }}
-              </p>
-              <p class="text-white text-lg">
-                <span class="text-lg font-bold">Rocket Name: </span
-                >{{ l.rocket.rocket_name }}
-              </p>
-              <p class="text-white text-lg">
-                <span class="text-lg font-bold">Rocket Type: </span
-                >{{ l.rocket.rocket_type }}
-              </p>
-            </div>
-          </div>
-        </div>
+          <app-launches-item
+            class="w-full"
+            [missionName]="l.mission_name"
+            [rocketName]="l.rocket.rocket_name"
+            [rocketType]="l.rocket.rocket_type"
+            [imagePath]="l.links.mission_patch_small"
+          ></app-launches-item>
+        </a>
       </div>
     </div>
   </div>

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-launches-item',
   templateUrl: './launches-item.component.html',
-  styleUrls: ['./launches-item.component.scss']
+  styleUrls: ['./launches-item.component.scss'],
 })
 export class LaunchesItemComponent implements OnInit {
+  @Input() missionName: string = '';
+  @Input() rocketName: string = '';
+  @Input() rocketType: string = '';
+  @Input() imagePath: string = '';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

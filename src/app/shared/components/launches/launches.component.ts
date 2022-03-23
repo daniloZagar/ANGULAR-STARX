@@ -6,7 +6,6 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { LaunchesService } from '../../services/launches.service';
 import { ILaunches } from '../../interfaces/launches.model';
 
@@ -20,7 +19,6 @@ export class LaunchesComponent implements OnInit, AfterViewInit {
   theLastList?: QueryList<ElementRef>;
   showResults: number = 0;
   launches: ILaunches[] = [];
-  allSub = Subscription;
   observer: any;
   constructor(private launchesService: LaunchesService) {}
   getLaunches() {

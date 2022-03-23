@@ -4,3 +4,4 @@ export interface ILaunches {
   rocket: { rocket_name: string; rocket_type: string };
   links: { mission_patch_small: string };
 }
+export interface ILaunchesItems extends Array<ILaunches> {}

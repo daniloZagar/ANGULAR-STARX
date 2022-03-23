@@ -1,1 +1,10 @@
-<p>launches-details works!</p>
+<div class="w-full h-[80vh] flex justify-center items-center">
+  <div class="w-1/2">
+    <app-launches-item
+      [missionName]="launchDetail.missionName"
+      [rocketName]="launchDetail.rocketName"
+      [rocketType]="launchDetail.rocketType"
+      [imagePath]="launchDetail.imagePath"
+    ></app-launches-item>
+  </div>
+</div>
