@@ -11,14 +11,22 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { LaunchesDetailsComponent } from './components/launches/launches-details/launches-details.component';
 import { LaunchesItemComponent } from './components/launches/launches-item/launches-item.component';
 import { LaunchesComponent } from './components/launches/launches.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, LoaderComponent, LaunchesComponent,
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    LoaderComponent,
+    LaunchesComponent,
     LaunchesDetailsComponent,
-    LaunchesItemComponent,],
+    LaunchesItemComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
     Shared,
     RouterModule.forRoot(AppRoutes),
   ],

@@ -5,35 +5,32 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { LoaderService } from '../services/loader.service';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
   private requests: HttpRequest<any>[] = [];
-
   constructor(private loaderService: LoaderService) {}
-
   removeRequest(req: HttpRequest<any>) {
     const i = this.requests.indexOf(req);
-    console.log('i', i);
+    console.log('indexOf', i);
     if (i >= 0) {
       this.requests.splice(i, 1);
-      console.log('this.requests', this.requests);
+      console.log('sliced', this.requests);
     }
-    console.log('this.requests outside', this.requests);
+    console.log('length of requests', this.requests.length);
     this.loaderService.isLoading.next(this.requests.length > 0);
+    // Ako ima podataka u request zatvori request
   }
-
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.requests.push(req);
-
-    console.log('No of requests--->' + this.requests.length);
-
+    console.log('request from intercept', this.requests);
     this.loaderService.isLoading.next(true);
     return Observable.create((observer: any) => {
       const subscription = next.handle(req).subscribe(
@@ -53,10 +50,9 @@ export class LoaderInterceptor implements HttpInterceptor {
           observer.complete();
         }
       );
-      // remove request from queue when cancelled
       return () => {
         this.removeRequest(req);
-        subscription.unsubscribe();
+        subscription.unsubscribe;
       };
     });
   }

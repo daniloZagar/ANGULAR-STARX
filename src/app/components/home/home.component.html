@@ -1,19 +1,46 @@
-<div class="flex items-center justify-center w-full">
-  <div class="flex flex-wrap max-w-[750px]">
-    <app-loader></app-loader>
-    <div
-      *ngFor="let image of imagesArr"
-      [style.width.px]="image.imageWidth"
-      [style.height.px]="image.imageWidth"
-      class="p-5"
+<app-loader
+  class="absolute top-1/2 left-1/2 -translate-1/2 -translate-x-1/2 h-72 w-72 z-50"
+></app-loader>
+<div class="relative flex justify-center p-2">
+  <div class="gallery max-w-[800px]">
+    <div *ngFor="let image of flickrImages; let i = index" class="gallery-img">
+      <img (click)="onPreviewImage(i)" [src]="image" alt="" />
+    </div>
+  </div>
+
+  <div
+    *ngIf="showMask"
+    class="flex items-center lightbox justify-center fixed top-0 left-0 w-full h-full"
+  >
+    <span
+      *ngIf="showCount"
+      class="absolute top-0 left-0 w-24 h-24 text-white text-2xl flex justify-center items-center ml-5"
+      >{{ currentIndex + 1 }} / {{ totalImageCount }}</span
     >
-      <a [href]="image.imagePath" target="_blank">
-        <img
-          [src]="image.imagePath"
-          alt=""
-          class="w-full h-full object-cover"
-        />
-      </a>
+
+    <button
+      *ngIf="previewImage"
+      class="absolute flex justify-center items-center z-10 w-24 h-24 p-0 text-white right-0 top-0 text-5xl"
+    >
+      <i class="fas fa-solid fa-rectangle-xmark"></i>
+    </button>
+    <button
+      *ngIf="controls"
+      class="absolute flex justify-center items-center z-10 w-24 h-24 p-0 text-white text-center left-0 text-5xl"
+    >
+      <i class="fa fa-arrow-circle-left"></i></button
+    ><button
+      *ngIf="controls"
+      class="absolute flex justify-center items-center z-10 w-24 h-24 p-0 text-5xl text-white text-center btn-next right-0"
+    >
+      <i class="fa fas fa-arrow-circle-right"></i>
+    </button>
+    <div *ngIf="previewImage" class="">
+      <img
+        [src]="currentLightboxImage"
+        alt=""
+        class="max-w-[600px] max-h-[700px]"
+      />
     </div>
   </div>
 </div>

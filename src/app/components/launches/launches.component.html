@@ -1,6 +1,8 @@
-<div>
+<div class="w-full">
+  <app-loader
+    class="absolute top-1/2 left-1/2 -translate-1/2 -translate-x-1/2 h-72 w-72"
+  ></app-loader>
   <div class="grid grid-cols-1 lg:grid-cols-3">
-    <app-loader></app-loader>
     <div class="col-span-1" *ngFor="let l of launches; let i = index">
       <div
         class="flex justify-center p-5"

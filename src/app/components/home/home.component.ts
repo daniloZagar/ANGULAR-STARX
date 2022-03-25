@@ -7,16 +7,13 @@ import {
 } from '../../shared/interfaces/launches.model';
 import { LaunchesService } from '../../shared/services/launches.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private launchService: LaunchesService,
-  ) {}
+  constructor(private launchService: LaunchesService) {}
   flickrImages: string[] = [];
   loading: boolean = false;
   imagesArr: IFlickrImageItems = [];
@@ -24,6 +21,13 @@ export class HomeComponent implements OnInit {
     imagePath: '',
     imageWidth: 0,
   };
+  previewImage = false;
+  showMask = false;
+  currentLightboxImage = this.flickrImages[0];
+  currentIndex = 0;
+  controls = true;
+  totalImageCount = 0;
+  showCount = 0;
   getImages() {
     this.launchService.getLaunchesData().subscribe((data) => {
       data.forEach((d: any) => {
@@ -31,25 +35,17 @@ export class HomeComponent implements OnInit {
           this.flickrImages.push(d.links.flickr_images[0]);
         }
       });
-      this.getRadomImages(this.flickrImages);
     });
+    this.totalImageCount = this.flickrImages.length;
   }
-  randomNum() {
-    var number = Math.floor(Math.random() * 50 + 200);
-    return number;
-  }
-  getRadomImages(images: string[]) {
-    images.forEach((img) => {
-      let newImageObject = {
-        imagePath: img,
-        imageWidth: this.randomNum(),
-      };
-      this.imageObj = { ...newImageObject };
-      this.imagesArr.push(this.imageObj);
-    });
-    console.log(this.imagesArr);
-  }
+
   ngOnInit(): void {
     this.getImages();
+  }
+  onPreviewImage(index: number): void {
+    this.showMask = true;
+    this.previewImage = true;
+    this.currentIndex = index;
+    this.currentLightboxImage = this.flickrImages[index];
   }
 }
