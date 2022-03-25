@@ -3,13 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Shared } from './shared/shared.module';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { AppRoutes } from './app.routes';
 import { RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { LaunchesDetailsComponent } from './components/launches/launches-details/launches-details.component';
+import { LaunchesItemComponent } from './components/launches/launches-item/launches-item.component';
+import { LaunchesComponent } from './components/launches/launches.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, LoaderComponent, LaunchesComponent,
+    LaunchesDetailsComponent,
+    LaunchesItemComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,

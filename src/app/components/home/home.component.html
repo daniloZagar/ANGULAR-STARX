@@ -1,0 +1,19 @@
+<div class="flex items-center justify-center w-full">
+  <div class="flex flex-wrap max-w-[750px]">
+    <app-loader></app-loader>
+    <div
+      *ngFor="let image of imagesArr"
+      [style.width.px]="image.imageWidth"
+      [style.height.px]="image.imageWidth"
+      class="p-5"
+    >
+      <a [href]="image.imagePath" target="_blank">
+        <img
+          [src]="image.imagePath"
+          alt=""
+          class="w-full h-full object-cover"
+        />
+      </a>
+    </div>
+  </div>
+</div>

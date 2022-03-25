@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedRoutes } from './shared.routes';
-import { LaunchesDetailsComponent } from './components/launches/launches-details/launches-details.component';
-import { LaunchesItemComponent } from './components/launches/launches-item/launches-item.component';
-import { LaunchesComponent } from './components/launches/launches.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DefaultImagePipe } from './pipes/image.pipe';
+import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   imports: [
@@ -17,18 +17,14 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule.forChild(SharedRoutes),
   ],
-  declarations: [
-    LaunchesComponent,
-    LaunchesDetailsComponent,
-    LaunchesItemComponent,
+  declarations: [DefaultImagePipe],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
   ],
-  exports: [
-    LaunchesComponent,
-    LaunchesDetailsComponent,
-    LaunchesItemComponent,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  exports: [CommonModule, FormsModule, ReactiveFormsModule, DefaultImagePipe],
 })
 export class Shared {}

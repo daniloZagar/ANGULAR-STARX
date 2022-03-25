@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { filter, map, mergeMap, Observable } from 'rxjs';
+import { ILaunches } from '../interfaces/launches.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +14,8 @@ export class LaunchesService {
   }
   getLaunchesDetails(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
+  }
+  getLaunchesData(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
   }
 }

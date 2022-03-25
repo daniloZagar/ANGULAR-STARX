@@ -6,8 +6,9 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { LaunchesService } from '../../services/launches.service';
-import { ILaunches } from '../../interfaces/launches.model';
+import { ILaunches } from 'src/app/shared/interfaces/launches.model';
+import { LaunchesService } from 'src/app/shared/services/launches.service';
+
 
 @Component({
   selector: 'app-launches',

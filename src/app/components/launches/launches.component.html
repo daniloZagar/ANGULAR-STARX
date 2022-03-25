@@ -1,7 +1,12 @@
 <div>
   <div class="grid grid-cols-1 lg:grid-cols-3">
+    <app-loader></app-loader>
     <div class="col-span-1" *ngFor="let l of launches; let i = index">
-      <div class="flex justify-center p-5" *ngIf="i + 1 === launches.length" #theLastList>
+      <div
+        class="flex justify-center p-5"
+        *ngIf="i + 1 === launches.length"
+        #theLastList
+      >
         <a
           [routerLink]="['/launches', l.flight_number]"
           class="flex justify-center p-5 w-full"
