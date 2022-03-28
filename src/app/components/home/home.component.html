@@ -21,25 +21,40 @@
     <button
       *ngIf="previewImage"
       class="absolute flex justify-center items-center z-10 w-24 h-24 p-0 text-white right-0 top-0 text-5xl"
+      (click)="onClosePreview()"
     >
-      <i class="fas fa-solid fa-rectangle-xmark"></i>
+      <fa-icon
+        class="white opacity-50 transition-all ease-in-out hover:opacity-80 active:opacity-50"
+        [icon]="xMark"
+      ></fa-icon>
     </button>
     <button
       *ngIf="controls"
       class="absolute flex justify-center items-center z-10 w-24 h-24 p-0 text-white text-center left-0 text-5xl"
     >
-      <i class="fa fa-arrow-circle-left"></i></button
+      <fa-icon
+        class="white opacity-50 transition-all ease-in-out hover:opacity-80 active:opacity-50"
+        [icon]="prevArrow"
+      ></fa-icon></button
     ><button
       *ngIf="controls"
       class="absolute flex justify-center items-center z-10 w-24 h-24 p-0 text-5xl text-white text-center btn-next right-0"
     >
-      <i class="fa fas fa-arrow-circle-right"></i>
+      <fa-icon
+        class="white opacity-50 transition-all ease-in-out hover:opacity-80 active:opacity-50"
+        [icon]="nextArrow"
+      ></fa-icon>
     </button>
-    <div *ngIf="previewImage" class="">
+    <div
+      *ngIf="previewImage"
+      class=""
+      [@animation]="{ value: 'visible' }"
+      (@aniamtion.done)="onAnimationEnd($event)"
+    >
       <img
         [src]="currentLightboxImage"
         alt=""
-        class="max-w-[600px] max-h-[700px]"
+        class="max-w-[600px] max-h-[700px] rounded-2xl"
       />
     </div>
   </div>

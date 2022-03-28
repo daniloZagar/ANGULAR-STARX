@@ -6,11 +6,36 @@ import {
   ILaunches,
 } from '../../shared/interfaces/launches.model';
 import { LaunchesService } from '../../shared/services/launches.service';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  animate,
+  style,
+  transition,
+  trigger,
+  AnimationEvent,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('animation', [
+      transition('void => visible', [
+        style({ tranform: 'scale(0.5)' }),
+        animate('150ms', style({ transform: 'scale(1)' })),
+      ]),
+      transition('visible => void', [
+        style({ tranform: 'scale(0.5)' }),
+        animate('150ms', style({ transform: 'scale(1)' })),
+      ]),
+    ]),
+    trigger('animation2', [
+      transition(':leave', [])
+    ])
+  ],
 })
 export class HomeComponent implements OnInit {
   constructor(private launchService: LaunchesService) {}
@@ -28,6 +53,9 @@ export class HomeComponent implements OnInit {
   controls = true;
   totalImageCount = 0;
   showCount = 0;
+  prevArrow = faArrowCircleLeft;
+  nextArrow = faArrowCircleRight;
+  xMark = faXmark;
   getImages() {
     this.launchService.getLaunchesData().subscribe((data) => {
       data.forEach((d: any) => {
@@ -47,5 +75,13 @@ export class HomeComponent implements OnInit {
     this.previewImage = true;
     this.currentIndex = index;
     this.currentLightboxImage = this.flickrImages[index];
+  }
+  onAnimationEnd(event: AnimationEvent) {
+    if (event.toState === 'void') {
+      this.showMask = false;
+    }
+  }
+  onClosePreview(){
+    this.previewImage = false
   }
 }
